@@ -1,0 +1,36 @@
+import java.util.*;
+public class InTheDream {
+    static boolean halfValid(int x, int y) {
+        // No 3 consecutive by same team possible in the half
+        // iff max(x,y) <= 2*min(x,y) + 2
+        int mx = Math.max(x, y);
+        int mn = Math.min(x, y);
+        return mx <= 2 * mn + 2;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+            int d = sc.nextInt();
+
+            // Goals scored in second half
+            int ar = c - a;
+            int br = d - b;
+
+            // Basic sanity (constraints promise these but keep it robust)
+            if (a < 0 || b < 0 || ar < 0 || br < 0) {
+                System.out.println("No");
+                continue;
+            }
+
+            boolean okFirst = halfValid(a, b);
+            boolean okSecond = halfValid(ar, br);
+
+            System.out.println(okFirst && okSecond ? "Yes" : "No");
+        }
+    }
+}
